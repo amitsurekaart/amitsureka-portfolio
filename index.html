@@ -1,6 +1,99 @@
 
 <!DOCTYPE html>
 <html lang="en">
+  
+
+<style>
+/* PREMIUM CINEMATIC PORTFOLIO EFFECTS */
+:root {
+  --netflix-red: #e50914;
+  --cinema-black: #090909;
+  --cinema-card: #171717;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 85px;
+}
+
+/* Project cards: depth, lift and red ambient glow */
+#projects article,
+#projects .project-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--cinema-card);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 12px;
+  transition:
+    transform .35s ease,
+    box-shadow .35s ease,
+    border-color .35s ease;
+}
+
+#projects article:hover,
+#projects .project-card:hover {
+  transform: translateY(-8px) scale(1.015);
+  border-color: rgba(229,9,20,.8);
+  box-shadow:
+    0 16px 38px rgba(0,0,0,.45),
+    0 0 25px rgba(229,9,20,.15);
+}
+
+/* Animated red light along the card's top edge */
+#projects article::before,
+#projects .project-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(
+    90deg, transparent, #e50914, #ff6269, transparent
+  );
+  transition: left .5s ease;
+  z-index: 2;
+}
+
+#projects article:hover::before,
+#projects .project-card:hover::before {
+  left: 100%;
+}
+
+/* Buttons */
+.btn {
+  transition: transform .25s ease, box-shadow .25s ease,
+              filter .25s ease;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.1);
+}
+
+.btn-red:hover {
+  box-shadow: 0 0 24px rgba(229,9,20,.35);
+}
+
+/* Accessible motion settings */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  #projects article,
+  #projects .project-card,
+  .btn {
+    transition: none;
+  }
+
+  #projects article:hover,
+  #projects .project-card:hover,
+  .btn:hover {
+    transform: none;
+  }
+}
+</style>
+
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -89,19 +182,65 @@ section { padding: 76px 0; scroll-margin-top: 75px; }
 }
 
 /* Hero */
+
 .hero {
-  min-height: 680px;
+  min-height: 740px;
   position: relative;
   display: flex;
   align-items: center;
   overflow: hidden;
+  isolation: isolate;
   background:
-    linear-gradient(90deg, #101010 0%, rgba(16,16,16,.96) 26%,
-    rgba(16,16,16,.76) 48%, rgba(16,16,16,.12) 100%),
-    linear-gradient(0deg, #101010 0%, transparent 35%),
+    linear-gradient(90deg,
+      #090909 0%,
+      rgba(9,9,9,.96) 24%,
+      rgba(9,9,9,.78) 52%,
+      rgba(9,9,9,.24) 100%),
+    linear-gradient(0deg, #101010 0%, transparent 42%),
     url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2200&q=85")
     center 48% / cover no-repeat;
 }
+
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -30%;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 78% 42%,
+      rgba(229,9,20,.22), transparent 34%),
+    radial-gradient(ellipse at 90% 75%,
+      rgba(229,9,20,.10), transparent 28%);
+  animation: heroRedGlow 7s ease-in-out infinite alternate;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  border-bottom: 1px solid rgba(229,9,20,.25);
+  box-shadow: inset 0 -65px 90px -75px rgba(229,9,20,.35);
+}
+
+@keyframes heroRedGlow {
+  from { transform: translate3d(-2%, 0, 0) scale(1); opacity: .55; }
+  to   { transform: translate3d(2%, -1%, 0) scale(1.08); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 680px;
+    background-position: 58% center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::before { animation: none; }
+}
+
 .hero-content {
   position: relative;
   z-index: 1;
@@ -513,6 +652,532 @@ dialog p, dialog li { color: #ccc; font-size: 14px; line-height: 1.8; }
   *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
 }
 </style>
+
+<style>
+/* Subtle cinematic page entrance */
+@keyframes cinematicEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body {
+  animation: cinematicEntrance 0.8s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+  }
+}
+</style>
+
+<!-- Amit Sureka Portfolio Favicon -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23090909'/%3E%3Ctext x='50' y='66' font-size='43' font-family='Arial,sans-serif' font-weight='bold' text-anchor='middle' fill='%23e50914'%3EAS%3C/text%3E%3C/svg%3E">
+
+<style>
+/* PREMIUM CINEMATIC MOTION */
+:root {
+  --netflix-red: #e50914;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+a, button {
+  transition: color .25s ease, background .25s ease,
+              transform .25s ease, box-shadow .25s ease;
+}
+
+a:hover, button:hover {
+  filter: brightness(1.12);
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(229, 9, 20, .24);
+}
+
+/* Reveal sections as visitors scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Cinematic project cards */
+#projects article,
+#projects .project-card {
+  transition: transform .35s ease, box-shadow .35s ease,
+              border-color .35s ease;
+}
+
+#projects article:hover,
+#projects .project-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 14px 34px rgba(229, 9, 20, .18);
+  border-color: var(--netflix-red);
+}
+
+/* Red accent glow */
+.btn-red:hover {
+  box-shadow: 0 0 22px rgba(229, 9, 20, .38);
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const items = document.querySelectorAll(
+    'main section, .episode, .episode-card, .project-card, #projects article'
+  );
+
+  if (!('IntersectionObserver' in window)) {
+    items.forEach(item => item.classList.add('visible'));
+    return;
+  }
+
+  items.forEach(item => item.classList.add('reveal'));
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  items.forEach(item => observer.observe(item));
+});
+</script>
+
+<style>
+/* ===== AMIT SUREKA: CINEMATIC REDESIGN ===== */
+
+:root {
+  --bg: #080808;
+  --panel: #151515;
+  --red: #e50914;
+  --white: #fff;
+  --muted: #b8b8b8;
+}
+
+body {
+  background: #080808;
+  color: #f8f8f8;
+  letter-spacing: .1px;
+}
+
+.container {
+  width: min(1500px, 91%);
+}
+
+/* PREMIUM NAVIGATION */
+.nav {
+  background: rgba(5,5,5,.88);
+  border-bottom: 1px solid rgba(229,9,20,.25);
+  backdrop-filter: blur(20px);
+}
+
+.brand {
+  font-size: 27px;
+  letter-spacing: -1.5px;
+  text-shadow: 0 0 24px rgba(229,9,20,.25);
+}
+
+.nav-links a {
+  transition: color .2s, text-shadow .2s;
+}
+
+.nav-links a:hover {
+  color: white;
+  text-shadow: 0 0 14px rgba(229,9,20,.9);
+}
+
+/* DRAMATIC FULL-SCREEN HERO */
+.hero {
+  min-height: min(850px, calc(100vh - 76px));
+  background:
+    linear-gradient(90deg,
+      #080808 0%,
+      rgba(8,8,8,.96) 28%,
+      rgba(8,8,8,.72) 57%,
+      rgba(8,8,8,.18) 100%),
+    linear-gradient(0deg, #080808 0%, transparent 42%),
+    url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2200&q=85")
+    center / cover no-repeat;
+}
+
+.hero-content {
+  width: min(800px, 100%);
+  padding: 100px 0 115px;
+  animation: premiumEntrance .9s ease-out both;
+}
+
+@keyframes premiumEntrance {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.eyebrow {
+  display: inline-block;
+  padding: 8px 13px;
+  border-left: 3px solid var(--red);
+  background: linear-gradient(90deg, rgba(229,9,20,.16), transparent);
+  letter-spacing: 4px;
+}
+
+.hero h1 {
+  font-size: clamp(68px, 10vw, 132px);
+  line-height: .87;
+  letter-spacing: -7px;
+  margin: 30px 0;
+  text-shadow: 0 8px 40px rgba(0,0,0,.55);
+}
+
+.hero h2 {
+  font-size: clamp(20px, 2.4vw, 30px);
+}
+
+.hero-description {
+  max-width: 610px;
+  font-size: 17px;
+}
+
+.hero-note {
+  border-left: 2px solid var(--red);
+  padding-left: 13px;
+}
+
+/* BIGGER, MORE PREMIUM BUTTONS */
+.btn {
+  min-height: 48px;
+  padding: 14px 23px;
+  border-radius: 5px;
+  transition: transform .25s, box-shadow .25s, background .25s;
+}
+
+.btn-light:hover {
+  background: #e5e5e5;
+}
+
+.btn-red {
+  box-shadow: 0 5px 24px rgba(229,9,20,.17);
+}
+
+.btn-red:hover {
+  background: #ff1722;
+  box-shadow: 0 7px 30px rgba(229,9,20,.38);
+}
+
+/* SECTION SPACING AND HEADINGS */
+main > section:not(.hero) {
+  padding-top: 95px;
+  padding-bottom: 95px;
+}
+
+.section-heading {
+  margin-bottom: 34px;
+}
+
+.section-heading h2 {
+  font-size: clamp(30px, 4vw, 43px);
+  letter-spacing: -1.3px;
+}
+
+.section-heading p {
+  color: #d0d0d0;
+}
+
+/* CAREER EPISODES: STREAMING-CATALOG FEEL */
+.episodes {
+  gap: 22px;
+}
+
+.episode {
+  background: linear-gradient(155deg, #202020, #111);
+  border: 1px solid #303030;
+  border-radius: 9px;
+  box-shadow: 0 8px 25px rgba(0,0,0,.18);
+  transition: transform .3s, border-color .3s, box-shadow .3s;
+}
+
+.episode:hover {
+  transform: translateY(-9px) scale(1.015);
+  border-color: rgba(229,9,20,.75);
+  box-shadow: 0 18px 40px rgba(0,0,0,.45);
+}
+
+.episode-image {
+  height: 220px;
+}
+
+.episode-play {
+  width: 48px;
+  height: 48px;
+  border: 2px solid white;
+  transition: background .2s, transform .2s;
+}
+
+.episode:hover .episode-play {
+  background: var(--red);
+  transform: scale(1.08);
+}
+
+.episode-body {
+  padding: 22px;
+}
+
+.episode h3 {
+  font-size: 22px;
+}
+
+.tag {
+  background: #222;
+  border-radius: 4px;
+}
+
+/* LARGE KPI STRIP */
+.stats-band {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(229,9,20,.09), transparent 65%),
+    #101010;
+  border-color: #292929;
+  padding: 48px 0;
+}
+
+.stat {
+  border-left: 3px solid var(--red);
+  padding: 8px 0 8px 22px;
+}
+
+.stat strong {
+  font-size: clamp(38px, 4.5vw, 56px);
+  letter-spacing: -2px;
+}
+
+.stat span {
+  display: inline-block;
+  margin-top: 7px;
+  font-size: 13px;
+}
+
+/* FEATURED PROJECTS: HIGH-CONTRAST CATALOG */
+#projects {
+  background:
+    radial-gradient(ellipse at 10% 0%, rgba(229,9,20,.08), transparent 40%),
+    #0b0b0b !important;
+  padding: 100px 5% !important;
+}
+
+#projects article,
+#projects .project-card {
+  background: linear-gradient(145deg, #202020, #111) !important;
+  border: 1px solid #333;
+  border-radius: 10px;
+  box-shadow: 0 12px 32px rgba(0,0,0,.22);
+  transition: transform .3s, border-color .3s, box-shadow .3s;
+}
+
+#projects article:hover,
+#projects .project-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--red);
+  box-shadow: 0 18px 40px rgba(229,9,20,.12);
+}
+
+#projects h2,
+#projects h3 {
+  letter-spacing: -.7px;
+}
+
+#projects h2 {
+  font-size: clamp(30px, 4vw, 44px);
+}
+
+#projects p {
+  line-height: 1.8;
+}
+
+/* RED ACCENT DIVIDERS */
+section[id] {
+  scroll-margin-top: 90px;
+}
+
+/* MOBILE POLISH */
+@media (max-width: 900px) {
+  .episodes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero h1 {
+    letter-spacing: -4px;
+  }
+
+  .nav-inner {
+    gap: 16px;
+  }
+
+  .nav-label {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 90%;
+  }
+
+  .hero {
+    min-height: 720px;
+    background-position: 60% center;
+  }
+
+  .hero-content {
+    padding: 75px 0;
+  }
+
+  .hero h1 {
+    font-size: clamp(57px, 15vw, 84px);
+    letter-spacing: -3px;
+  }
+
+  .hero-description {
+    font-size: 15px;
+  }
+
+  main > section:not(.hero) {
+    padding-top: 65px;
+    padding-bottom: 65px;
+  }
+
+  .episodes {
+    grid-template-columns: 1fr;
+  }
+
+  .episode-image {
+    height: 230px;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 15px;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  #projects {
+    padding: 65px 5% !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-content {
+    animation: none;
+  }
+
+  .episode,
+  .btn,
+  #projects article,
+  #projects .project-card {
+    transition: none;
+  }
+}
+
+/* HERO SIZE AND BUTTON ALIGNMENT FIX */
+.hero {
+  min-height: 680px;
+  min-height: min(760px, calc(100vh - 76px));
+}
+
+.hero-content {
+  width: min(760px, 100%);
+  padding: 55px 0 65px;
+}
+
+.hero h1 {
+  font-size: clamp(54px, 6.2vw, 88px);
+  line-height: .98;
+  letter-spacing: -3px;
+  margin: 22px 0 24px;
+}
+
+.hero h2 {
+  font-size: clamp(19px, 2vw, 27px);
+  line-height: 1.35;
+}
+
+.hero-description {
+  max-width: 650px;
+  line-height: 1.75;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.actions .btn,
+.actions > a {
+  min-height: 48px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 13px 20px;
+  font-size: 14px;
+  line-height: 1.4;
+  border-radius: 5px;
+}
+
+@media (max-width: 600px) {
+  .hero {
+    min-height: auto;
+  }
+
+  .hero-content {
+    padding: 60px 0 75px;
+  }
+
+  .hero h1 {
+    font-size: clamp(48px, 12vw, 68px);
+    letter-spacing: -2px;
+  }
+}
+
+</style>
+
 </head>
 
 <body>
@@ -526,6 +1191,8 @@ dialog p, dialog li { color: #ccc; font-size: 14px; line-height: 1.8; }
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
+      <a href="#projects">Projects</a>
+
     </nav>
     <span class="nav-label">PERSONAL PORTFOLIO</span>
   </div>
@@ -551,6 +1218,14 @@ dialog p, dialog li { color: #ccc; font-size: 14px; line-height: 1.8; }
           <a class="btn btn-light" href="#journey">▶ Explore My Story</a>
           <a class="btn btn-dark" href="#about">ⓘ About Me</a>
           <a class="btn btn-red" href="Amit-Sureka-Resume.pdf" download>↓ Download Resume</a>
+          
+<a href="https://www.linkedin.com/in/amitsurekaart/"
+   target="_blank"
+   rel="noopener noreferrer"
+   style="display:inline-block;padding:14px 22px;margin:8px 0;background:#0a66c2;color:#fff;text-decoration:none;border-radius:5px;font-weight:bold;">
+   in  Connect on LinkedIn
+</a>
+
         </div>
         <div class="hero-note">Analytics is the story. Business impact is the outcome.</div>
       </div>
@@ -890,7 +1565,8 @@ dialog p, dialog li { color: #ccc; font-size: 14px; line-height: 1.8; }
         <div class="contact-actions">
           <a class="btn btn-red" href="mailto:amitsurekaart@gmail.com">✉ Email Me</a>
           <a class="btn btn-light" href="https://www.linkedin.com/in/amitsurekaart/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-          <button class="btn btn-dark" id="copyEmail">Copy Email</button>
+          <button class="btn btn-dark" id="copyEmail" onclick="navigator.clipboard.writeText('amitsurekaart@gmail.com').then(()=>{this.textContent='Email Copied! ✓';setTimeout(()=>this.textContent='Copy Email',2000)}).catch(()=>alert('Please copy email manually: amitsurekaart@gmail.com'))">Copy Email</button>
+
         </div>
       </div>
     </div>
@@ -1056,5 +1732,34 @@ if ("IntersectionObserver" in window) {
 </section>
 <!-- END FEATURED PROJECTS -->
 
+<!-- CONTACT SECTION -->
+<section id="contact" style="padding:65px 5%;background:#171717;color:#fff;font-family:Arial,sans-serif;text-align:center;">
+  <p style="color:#e50914;letter-spacing:4px;font-size:12px;font-weight:bold;">THE NEXT CHAPTER</p>
+  <h2 style="font-size:clamp(30px,4vw,44px);margin:12px 0;">Let's Create Business Impact</h2>
+  <p style="color:#bbb;max-width:600px;margin:0 auto 28px;line-height:1.8;">
+    Open to opportunities where data, analytics, automation, and business strategy come together.
+  </p>
+  <a href="mailto:amitsurekaart@gmail.com" style="display:inline-block;margin:7px;padding:14px 24px;background:#e50914;color:#fff;text-decoration:none;border-radius:5px;font-weight:bold;">✉ Email Me</a>
+  <a href="https://www.linkedin.com/in/amitsurekaart/" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin:7px;padding:14px 24px;background:#0a66c2;color:#fff;text-decoration:none;border-radius:5px;font-weight:bold;">Connect on LinkedIn</a>
+  <p style="color:#777;font-size:12px;margin-top:35px;">NOIDA, INDIA · BUSINESS INTELLIGENCE · DATA ANALYTICS</p>
+</section>
+<!-- END CONTACT SECTION -->
+
+<!-- BACK TO TOP BUTTON -->
+<button id="backToTop" aria-label="Back to top"
+  onclick="window.scrollTo({top:0,behavior:'smooth'})"
+  style="position:fixed;right:24px;bottom:24px;z-index:9999;width:48px;height:48px;border:0;border-radius:50%;background:#e50914;color:#fff;font-size:24px;cursor:pointer;box-shadow:0 4px 18px #0008;display:none;">
+  ↑
+</button>
+<script>
+(function () {
+  const button = document.getElementById('backToTop');
+  function updateButton() {
+    button.style.display = window.scrollY > 350 ? 'block' : 'none';
+  }
+  window.addEventListener('scroll', updateButton, { passive: true });
+  updateButton();
+})();
+</script>
 </body>
 </html>
